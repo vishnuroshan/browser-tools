@@ -17,7 +17,6 @@ chrome.runtime.onMessage.addListener(async function (message, sender, sendRespon
   switch (message.type) {
     case 'start-wl': {
       if (!watchListRemoval) {
-        console.log('aaaa')
         watchListRemoval = setInterval(function () {
           document.querySelector('#primary button[aria-label="Action menu"]').click()
           const things = document.evaluate(
@@ -30,18 +29,19 @@ chrome.runtime.onMessage.addListener(async function (message, sender, sendRespon
           for (const i = 0; i < things.snapshotLength; i++) {
             things.snapshotItem(i).click()
           }
-        }, 500)
+        }, 5000)
       }
-      sendResponse('watch-later videos are getting removed')
+      sendResponse('STARTED')
 
       break
     }
     case 'stop-wl': {
       if (watchListRemoval) {
+        console.log(message, watchListRemoval)
         clearInterval(watchListRemoval)
-        sendResponse('watch-later video removal stopped')
+        watchListRemoval = null
       }
-
+      sendResponse('STOPPED')
       break
     }
   }

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'preact/hooks'
+
 import './Popup.css'
 
 export const Popup = () => {
@@ -20,6 +21,12 @@ export const Popup = () => {
     getCurrentTab()
   }, [])
 
+  const handleClick = async (_event) => {
+    const response = await chrome.tabs.sendMessage(tab.id, { type: getType(!watchLater) })
+    if (response) alert(response)
+    setWatchLater(!watchLater)
+  }
+
   return (
     <main>
       <h3>Browser tools</h3>
@@ -28,20 +35,7 @@ export const Popup = () => {
           <input
             disabled={!isYoutube(tab?.url)}
             checked={watchLater}
-            onClick={(_event) => {
-              if (tab.url === 'https://www.youtube.com/playlist?list=WL') {
-                chrome.tabs.sendMessage(
-                  tab.id,
-                  { type: getType(!watchLater) },
-                  function (response) {
-                    alert(response)
-                  },
-                )
-              } else {
-                alert('not youtube')
-              }
-              setWatchLater(!watchLater)
-            }}
+            onClick={handleClick}
             type="checkbox"
             id="switch"
           />

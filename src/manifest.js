@@ -1,7 +1,7 @@
 import { defineManifest } from '@crxjs/vite-plugin'
 
 export default defineManifest({
-  name: 'create-chrome-ext',
+  name: 'browser-tools',
   description: 'a very simple extension',
   version: '0.0.0',
   manifest_version: 3,
@@ -12,7 +12,7 @@ export default defineManifest({
     128: 'img/logo-128.png',
   },
   action: {
-    // default_popup: 'popup.html',
+    default_popup: 'popup.html',
     default_icon: 'img/logo-48.png',
   },
   // options_page: 'options.html',

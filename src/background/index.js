@@ -39,4 +39,4 @@ chrome.action.onClicked.addListener(async (tab) => {
       clearInterval()
     }
   }
-  })
+})

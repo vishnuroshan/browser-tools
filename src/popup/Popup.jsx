@@ -23,7 +23,9 @@ export const Popup = () => {
 
   const handleClick = async (_event) => {
     const response = await chrome.tabs.sendMessage(tab.id, { type: getType(!watchLater) })
-    if (response) alert(response)
+    if (response) {
+      alert(response)
+    }
     setWatchLater(!watchLater)
   }
 

@@ -4,8 +4,9 @@ import './Popup.css'
 
 export const Popup = () => {
   const [watchLater, setWatchLater] = useState(false)
+  const [intervalId, setIntervalId] = useState(false)
   const [tab, setTab] = useState(null)
-  const getType = (wl) => (wl ? 'start-wl' : 'stop-wl')
+  const getType = (wl) => (wl ? 'start-wl' : intervalId)
 
   const getCurrentTab = async () => {
     const tabs = await chrome.tabs.query({ active: true, currentWindow: true })
@@ -23,8 +24,8 @@ export const Popup = () => {
 
   const handleClick = async (_event) => {
     const response = await chrome.tabs.sendMessage(tab.id, { type: getType(!watchLater) })
-    if (response) {
-      alert(response)
+    if (response !== 'end') {
+      setIntervalId(response)
     }
     setWatchLater(!watchLater)
   }

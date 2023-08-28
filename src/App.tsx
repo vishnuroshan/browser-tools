@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-
+import './App.css';
 function App() {
   const [watchLater, setWatchLater] = useState<boolean>(false)
   const [intervalId, setIntervalId] = useState<number>(0)

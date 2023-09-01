@@ -17,13 +17,17 @@ function App() {
     getCurrentTab()
   }, [])
 
-  const handleClick = async () => {
-    if (tab && tab.id) {
-      const response = await browser.tabs.sendMessage<{ type: string | number | null }, number | string>(tab.id, { type: getType(!watchLater) })
-      if (typeof response === "number") {
+  const handleClick = () => {
+    try{if (tab && tab.id) {
+      browser.tabs.sendMessage<{ type: string | number | null }, number | string>(tab.id, { type: getType(!watchLater) }).then((response) => {
+        if (typeof response === "number") {
         setIntervalId(response)
       }
       setWatchLater(!watchLater)
+      })
+    }
+    } catch (err) {
+      console.log(err);
     }
   }
 

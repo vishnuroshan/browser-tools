@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-browser.runtime.onMessage.addListener(async function (message, _sender, sendResponse) {
+browser.runtime.onMessage.addListener(function (message, _sender, sendResponse) {
   if (message?.type === 'start-wl') {
     let watchListRemoval = setInterval(function () {
       document.querySelector('#primary button[aria-label="Action menu"]')?.click()
